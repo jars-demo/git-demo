@@ -1,9 +1,8 @@
-import Link from 'next/link'
-
 import { head } from '@kit/companions/head/head'
 import { Figure } from '@kit/react/Figure'
 
 import { CommitGraph } from '@/components/CommitGraph'
+import { ContinueButton } from '@/components/ContinueButton'
 import { CopyButton } from '@/components/CopyButton'
 import { Squares } from '@/components/Squares'
 import { LEVELS, REPO_URL } from '@/lib/levels'
@@ -51,7 +50,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-20 px-4 pt-12 pb-24 sm:pt-20">
-      <section className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
+      <section className="hero-glow -mx-4 -mt-12 grid items-center gap-12 px-4 pt-12 pb-4 sm:-mt-20 sm:pt-20 lg:grid-cols-[1fr_1.05fr]">
         <div className="flex min-w-0 flex-col gap-6">
           <p className="flex flex-wrap items-center gap-2 text-[12.5px] text-muted">
             <span className="rounded-full border border-line px-2.5 py-0.5">Public workshop</span>
@@ -60,7 +59,7 @@ export default function Home() {
             </span>
           </p>
           <h1 className="text-[3rem] leading-[1.02] font-semibold tracking-[-0.04em] sm:text-[4rem]">
-            Git good.
+            Git <span className="text-gradient">good.</span>
           </h1>
           <p className="max-w-xl text-[18px] leading-relaxed text-ink-2">
             Learn git by fixing real repositories. HEAD the cat sets up a problem, you solve it with
@@ -68,12 +67,7 @@ export default function Home() {
             merge conflicts, rebase, bisect, the reflog, and keeping AI agents in line.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link
-              href="/workshop/01-hello-head"
-              className="inline-flex h-10 items-center rounded-md border border-[#2ea043] bg-button px-4 text-[14px] font-semibold text-white hover:bg-[#2ea043]"
-            >
-              Start quest 01
-            </Link>
+            <ContinueButton chapters={GRAPH} />
             <a
               href={REPO_URL}
               className="inline-flex h-10 items-center rounded-md border border-line-strong bg-surface-2 px-4 text-[14px] font-medium hover:border-muted"

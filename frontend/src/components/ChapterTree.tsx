@@ -46,7 +46,13 @@ export function ChapterTree({
         <div key={level.id} className="flex flex-col gap-0.5">
           <div className="flex items-center gap-2 px-2 py-1 font-medium text-ink-2">
             <Folder />
-            {level.id}/
+            <span className="flex-1">{level.id}/</span>
+            <span
+              className="rounded-full px-1.5 font-mono text-[11px]"
+              style={{ color: level.color, background: `${level.color}1f` }}
+            >
+              {level.numbers.filter((number) => done.has(number)).length}/{level.numbers.length}
+            </span>
           </div>
           <ul>
             {level.numbers.map((number) => {

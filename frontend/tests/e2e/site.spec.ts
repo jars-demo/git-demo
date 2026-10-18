@@ -31,8 +31,14 @@ test('chapters page through in order', async ({ page }) => {
 test('HEAD the cat answers questions', async ({ page }) => {
   await page.goto('/')
   await page.locator('.cmp-button').click()
-  await page.getByRole('button', { name: "Help, I'm in a merge conflict." }).click()
+  const question = page.getByRole('button', { name: "Help, I'm in a merge conflict." })
+  // Light text on a light chip made the questions unreadable once: keep the chips dark.
+  const chip = await question.evaluate((el) => getComputedStyle(el).backgroundColor)
+  expect(chip).not.toBe('rgb(255, 255, 255)')
+
+  await question.click()
   await expect(page.getByText('git merge --abort')).toBeVisible()
+  await expect(question).toHaveAttribute('aria-pressed', 'true')
 })
 
 test('nothing scrolls sideways', async ({ page }) => {

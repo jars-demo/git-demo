@@ -134,12 +134,6 @@ body {
   margin: 1.25rem 0;
 }
 
-.prose-chapter .code-block > button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-}
-
 .prose-chapter table {
   width: 100%;
   margin: 1rem 0;
@@ -175,21 +169,43 @@ pre,
     'calt' 0;
 }
 
-/* HEAD the cat's panel, in the site's dark colours. */
+/* HEAD the cat's panel, fully in the site's dark colours: no light part left behind. */
 .cmp-root {
-  --cmp-surface: rgb(22 27 34 / 0.95);
+  --cmp-surface: rgb(22 27 34 / 0.97);
   --cmp-ink: #e6edf3;
-  --cmp-muted: #8b949e;
+  --cmp-muted: #9198a1;
   --cmp-accent: #3fb950;
-  --cmp-chip: #21262d;
+  --cmp-chip: #262c36;
+  --cmp-question: #1c2129;
+  --cmp-border: #3d444d;
+  --cmp-shadow: 0 24px 64px rgb(1 4 9 / 0.75);
+  --cmp-shine: rgb(240 246 252 / 0.06);
+}
+
+.cmp-answer {
+  border-left: 3px solid var(--cmp-accent);
+  color: var(--cmp-ink);
 }
 
 /* The chapter body as a rendered README. */
 .prose-chapter h2 {
+  scroll-margin-top: 5rem;
   border-top: none;
   padding-top: 0;
   padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--line);
+}
+
+.prose-chapter h2 .anchor {
+  margin-left: 0.4rem;
+  color: var(--muted);
+  opacity: 0;
+  text-decoration: none;
+}
+
+.prose-chapter h2:hover .anchor,
+.prose-chapter h2 .anchor:focus-visible {
+  opacity: 1;
 }
 
 .prose-chapter h3 {
@@ -197,4 +213,82 @@ pre,
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--ink);
+}
+
+.prose-chapter .code-block {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--code-bg);
+}
+
+.prose-chapter .code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.5rem 0.35rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.prose-chapter .code-block pre {
+  padding: 0.9rem 1rem 1rem;
+  border: 0;
+  border-radius: 0;
+}
+
+.prose-chapter .code-block.is-output pre {
+  color: #9198a1;
+}
+
+.prose-chapter .table-wrap {
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.prose-chapter .table-wrap table {
+  margin: 0;
+}
+
+.prose-chapter thead th {
+  background: var(--surface);
+}
+
+.prose-chapter tbody tr:nth-child(2n) {
+  background: rgb(22 27 34 / 0.5);
+}
+
+.prose-chapter tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.prose-chapter blockquote {
+  margin: 1rem 0;
+  padding: 0.25rem 1rem;
+  border-left: 3px solid var(--line-strong);
+  color: var(--muted);
+}
+
+/* A soft glow and dot grid behind the hero. */
+.hero-glow {
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 0%, rgb(46 160 67 / 0.14), transparent 70%),
+    radial-gradient(ellipse 50% 45% at 85% 10%, rgb(88 166 255 / 0.12), transparent 70%),
+    radial-gradient(rgb(240 246 252 / 0.07) 1px, transparent 1px);
+  background-size:
+    auto,
+    auto,
+    22px 22px;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #e6edf3 0%, #7ee787 55%, #79c0ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

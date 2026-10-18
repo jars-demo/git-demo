@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 
 import { ChapterTree } from '@/components/ChapterTree'
-import { MarkdownPre } from '@/components/MarkdownPre'
+import { headingsOf, Markdown } from '@/components/Markdown'
 import { QuestBox } from '@/components/QuestBox'
 import { levelOf } from '@/lib/levels'
 import { CHAPTERS, findChapter } from '@/lib/workshop'
@@ -38,9 +36,10 @@ export default async function ChapterPage(props: PageProps<'/workshop/[slug]'>) 
   const previous = CHAPTERS[index - 1]
   const next = CHAPTERS[index + 1]
   const level = levelOf(chapter.number)
+  const headings = headingsOf(chapter.body)
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-8 px-4 pt-8 pb-24 lg:grid-cols-[250px_minmax(0,1fr)]">
+    <div className="mx-auto grid max-w-6xl gap-8 px-4 pt-8 pb-24 lg:grid-cols-[250px_minmax(0,1fr)] xl:grid-cols-[250px_minmax(0,1fr)_190px]">
       <aside className="hidden lg:block">
         <div className="sticky top-20">
           <ChapterTree chapters={TREE} current={chapter.slug} />
@@ -90,9 +89,7 @@ export default async function ChapterPage(props: PageProps<'/workshop/[slug]'>) 
               <p className="text-[17px] leading-relaxed text-ink-2">{chapter.summary}</p>
             </header>
             <div className="prose-chapter">
-              <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ pre: MarkdownPre }}>
-                {chapter.body}
-              </ReactMarkdown>
+              <Markdown>{chapter.body}</Markdown>
             </div>
             <QuestBox number={chapter.number} />
           </div>
@@ -133,6 +130,32 @@ export default async function ChapterPage(props: PageProps<'/workshop/[slug]'>) 
           )}
         </nav>
       </div>
+
+      <aside className="hidden xl:block" aria-label="On this page">
+        <div className="sticky top-20 flex flex-col gap-2 text-[13px]">
+          <p className="font-medium text-ink">On this page</p>
+          <ul className="flex flex-col gap-1.5 border-l border-line">
+            {headings.map((heading) => (
+              <li key={heading.id}>
+                <a
+                  href={`#${heading.id}`}
+                  className="-ml-px block border-l border-transparent pl-3 text-muted hover:border-muted hover:text-ink"
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a
+                href="#quest-box"
+                className="-ml-px block border-l border-transparent pl-3 text-accent hover:border-accent"
+              >
+                Mark it done
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
     </div>
   )
 }

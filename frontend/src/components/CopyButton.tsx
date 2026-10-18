@@ -16,7 +16,7 @@ export function CopyButton({ text }: { text: string }) {
         }
         window.setTimeout(() => setState('idle'), 1600)
       }}
-      className="h-7 rounded border border-white/15 bg-white/5 px-2.5 font-mono text-[12px] text-[#ececea] hover:bg-white/10"
+      className="h-7 rounded-md border border-line bg-surface-2 px-2.5 font-mono text-[12px] text-ink-2 hover:border-line-strong hover:text-ink"
     >
       <span aria-live="polite">
         {state === 'copied' ? 'Copied' : state === 'blocked' ? 'Select to copy' : 'Copy'}
