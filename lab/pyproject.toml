@@ -1,0 +1,33 @@
+[project]
+name = "git-good-lab"
+version = "0.1.0"
+description = "Git quests: real repositories with real problems, and a checker that tells you when you fixed them."
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+quest = "quest.__main__:main"
+
+[build-system]
+requires = ["uv_build==0.11.3"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "quest"
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "ruff==0.16.10"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
