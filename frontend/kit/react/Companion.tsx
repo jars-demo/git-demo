@@ -222,7 +222,11 @@ export function Companion({
           <ul className="cmp-questions">
             {answers.map((item) => (
               <li key={item.question}>
-                <button type="button" onClick={() => setAnswer(item.answer)}>
+                <button
+                  type="button"
+                  aria-pressed={answer === item.answer}
+                  onClick={() => setAnswer(item.answer)}
+                >
                   {item.question}
                 </button>
               </li>
